@@ -1,4 +1,4 @@
-package com.example.filmbuffs
+package com.example.filmbuffs.objects
 
 
 import com.google.gson.annotations.SerializedName

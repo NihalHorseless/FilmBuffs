@@ -1,10 +1,16 @@
 package com.example.filmbuffs.adapters
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
+
 import androidx.recyclerview.widget.RecyclerView
+import com.example.filmbuffs.MainFragment
+import com.example.filmbuffs.MovieDetailFragment
 import com.example.filmbuffs.R
 import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
 import com.example.filmbuffs.objects.Movies
@@ -17,6 +23,7 @@ internal class MovieAdapter(val movies: List<com.example.filmbuffs.objects.Resul
         val txtTitle = binding.movieTitle
         val imgPoster = binding.moviePoster
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_poster_with_title,parent,false)
@@ -35,6 +42,15 @@ internal class MovieAdapter(val movies: List<com.example.filmbuffs.objects.Resul
             .placeholder(R.drawable.ic_action_placeholder)
             .error(R.drawable.ic_action_error_placeholder)
             .into(holder.imgPoster)
+        holder.imgPoster.setOnClickListener {
+            val intent = Intent(activity,MovieDetailFragment::class.java)
+            intent.putExtra("description_key",movie.overview)
+            intent.putExtra("image_url",movie.posterPath)
+
+        }
+
+    }
+    fun onClickPopularMovie(){
 
     }
 }

@@ -1,4 +1,4 @@
-package com.example.filmbuffs.objects
+package com.example.filmbuffs.models.popularmoviemodel
 
 
 import com.google.gson.annotations.SerializedName

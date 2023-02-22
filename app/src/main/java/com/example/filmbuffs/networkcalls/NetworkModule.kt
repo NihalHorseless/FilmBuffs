@@ -7,16 +7,19 @@ import com.example.filmbuffs.util.Constants.Companion.BASE_URL
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 class NetworkModule {
     //Setting up the Retrofit object
-    val api: MoviesApi by lazy {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(MoviesApi::class.java)
+    private val retrofit = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    private val api = retrofit.create(MoviesApi::class.java)
+    fun getRetrofitInstance() : Retrofit {
+        return retrofit
     }
+
     fun getMovies(): Call<List<Movie>> {
         return api.getMovies()
     }

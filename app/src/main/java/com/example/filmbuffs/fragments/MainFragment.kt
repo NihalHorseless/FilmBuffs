@@ -31,18 +31,19 @@ class MainFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_main,container,false)
-        recyclerview = view.findViewById(R.id.movielist)
-        adapter = MovieAdapter(myViewModel.movies.value!!,requireActivity())
-        recyclerview?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
-        recyclerview?.adapter = adapter
 
-        myViewModel.getMovies()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myViewModel.movies.observe(viewLifecycleOwner,{ movies -> adapter?.updateMovies(movies) })
+        recyclerview = view.findViewById(R.id.movielist)
+        adapter = MovieAdapter(requireActivity())
+        recyclerview?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
+        recyclerview?.adapter = adapter
+        myViewModel.movies.observe(viewLifecycleOwner,{ movies -> adapter!!.updateMovies(movies) })
+        myViewModel.getMovies()
+
 
     }
 

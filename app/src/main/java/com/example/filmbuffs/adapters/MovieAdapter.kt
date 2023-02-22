@@ -14,7 +14,7 @@ import com.example.filmbuffs.models.popularmoviemodel.TotalResults
 import com.example.filmbuffs.models.popularmoviemodel.Movie
 import com.squareup.picasso.Picasso
 
-internal class MovieAdapter(val movies: List<Movie>, val activity: Activity)
+internal class MovieAdapter( val activity: Activity)
     : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = MoviePosterWithTitleBinding.bind(itemView)
@@ -30,26 +30,18 @@ internal class MovieAdapter(val movies: List<Movie>, val activity: Activity)
     }
 
     override fun getItemCount(): Int {
-        return movies.size
+        return movieList.size
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie: Movie = movies[position]
+        val movie: Movie = movieList[position]
         holder.txtTitle.setText(movie.title)
         Picasso.with(activity)
             .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
             .placeholder(R.drawable.ic_action_placeholder)
             .error(R.drawable.ic_action_error_placeholder)
             .into(holder.imgPoster)
-        holder.imgPoster.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                val intent = Intent(activity, MovieDetailFragment::class.java)
-                intent.putExtra("movie_id", movie.id)
-               // v?.findNavController()?.navigate(R.id.action_mainFragment_to_movieDetailFragment2)
-
-            }
-        })
 
     }
 

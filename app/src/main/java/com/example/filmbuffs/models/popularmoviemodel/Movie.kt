@@ -3,7 +3,7 @@ package com.example.filmbuffs.models.popularmoviemodel
 
 import com.google.gson.annotations.SerializedName
 
-data class Result(
+data class Movie(
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")

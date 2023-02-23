@@ -20,7 +20,7 @@ class NetworkModule {
         return retrofit
     }
 
-    fun getMovies(): Call<List<Movie>> {
+    fun getMovies(): Call<TotalResults> {
         return api.getMovies()
     }
      fun getMovie(id: Int): Call<SingleMovieDetail> {

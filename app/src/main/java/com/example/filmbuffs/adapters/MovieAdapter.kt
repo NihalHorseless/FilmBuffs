@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
+import androidx.navigation.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.fragments.MovieDetailFragment
 import com.example.filmbuffs.R
 import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
+import com.example.filmbuffs.fragments.MainFragment
+import com.example.filmbuffs.fragments.MainFragmentDirections
 import com.example.filmbuffs.models.popularmoviemodel.TotalResults
 import com.example.filmbuffs.models.popularmoviemodel.Movie
 import com.squareup.picasso.Picasso
@@ -51,7 +54,9 @@ internal class MovieAdapter( val context: Context)
         holder.imgPoster.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt("movie_id",holder.itemId.toInt())
-            listener?.onItemClick(position)
+            MovieDetailFragment().arguments = bundle
+            val action = MainFragmentDirections.actionMainFragmentToMovieDetailFragment2()
+            it.findNavController().navigate(action)
         }
 
     }
@@ -60,8 +65,5 @@ internal class MovieAdapter( val context: Context)
         movieList = movies
         notifyDataSetChanged()
 
-    }
-    interface OnItemClickListener {
-        fun onItemClick(position: Int)
     }
 }

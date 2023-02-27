@@ -18,13 +18,11 @@ class MainViewModel : ViewModel() {
     val movies: LiveData<List<Movie>>
     get() = _movies
     fun getMovies() {
-        Log.d(TAG,"Get Movies")
         val call = apiService.getMovies()
         call.enqueue(object: Callback<TotalResults> {
             override fun onFailure(call: Call<TotalResults>, t: Throwable) {
                 Log.d(TAG,t.message!!)
             }
-
             override fun onResponse(call: Call<TotalResults>, response: Response<TotalResults>) {
                 if(response.isSuccessful) {
                     Log.d(TAG,"Success!")

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -24,9 +25,8 @@ class MainFragment : Fragment() {
     //
     private val myViewModel: MainViewModel by viewModels()
     //
-    private var recyclerview: RecyclerView? = null
-    private var adapter: MovieAdapter? = null
-
+    private lateinit var recyclerview: RecyclerView
+    private lateinit var adapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,13 +37,19 @@ class MainFragment : Fragment() {
         Log.d(TAG,"Entered view")
         recyclerview = view.findViewById(R.id.movielist)
         recyclerview?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
-        adapter = MovieAdapter(requireContext())
+        adapter = MovieAdapter()
         recyclerview?.adapter = adapter
         myViewModel.getMovies()
         myViewModel.movies.observe(viewLifecycleOwner,{ movies -> adapter?.updateMovies(movies) })
-
+        adapter.setOnItemClickListener(MovieAdapter.OnItemClickListener {
+            Log.d(TAG, "Clicked on ${it.title}")
+            val bundle = Bundle()
+            bundle.putInt("movie_id", it.id)
+            MovieDetailFragment().arguments = bundle
+            findNavController().navigate(R.id.action_mainFragment_to_movieDetailFragment, bundle)
+        }
+        )
         return view
-        Log.d(TAG,"Out of the view")
     }
 
 

@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView.OnItemClickListener
+import android.widget.ProgressBar
 import androidx.navigation.findNavController
 
 import androidx.recyclerview.widget.RecyclerView
@@ -18,14 +19,38 @@ import com.example.filmbuffs.fragments.MainFragment
 import com.example.filmbuffs.fragments.MainFragmentDirections
 import com.example.filmbuffs.models.popularmoviemodel.TotalResults
 import com.example.filmbuffs.models.popularmoviemodel.Movie
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
-internal class MovieAdapter( val context: Context)
+internal class MovieAdapter()
     : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = MoviePosterWithTitleBinding.bind(itemView)
         val txtTitle = binding.movieTitle
         val imgPoster = binding.moviePoster
+        val progressbar: ProgressBar = binding.progressBar
+        fun bindItems(movie: Movie, listener: OnItemClickListener) {
+            txtTitle.text = movie.title
+            progressbar.visibility = View.VISIBLE
+            Picasso.with(itemView.context)
+                .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
+                .error(R.drawable.ic_action_error_placeholder)
+                .noFade()
+                .into(imgPoster,object: com.squareup.picasso.Callback{
+                    override fun onSuccess() {
+                        progressbar.visibility = View.GONE
+                    }
+
+                    override fun onError() {
+                        progressbar.visibility = View.GONE
+                    }
+
+                })
+            itemView.setOnClickListener {
+                listener.onClick(movie)
+            }
+
+        }
     }
     private var movieList: List<Movie> = emptyList()
     private var listener: OnItemClickListener? = null
@@ -45,25 +70,14 @@ internal class MovieAdapter( val context: Context)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie: Movie = movieList[position]
-        holder.txtTitle.setText(movie.title)
-        Picasso.with(context)
-            .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
-            .placeholder(R.drawable.ic_action_placeholder)
-            .error(R.drawable.ic_action_error_placeholder)
-            .into(holder.imgPoster)
-        holder.imgPoster.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt("movie_id",holder.itemId.toInt())
-            MovieDetailFragment().arguments = bundle
-            val action = MainFragmentDirections.actionMainFragmentToMovieDetailFragment2()
-            it.findNavController().navigate(action)
-        }
-
+        holder.bindItems(movie, listener!!)
     }
-
     fun updateMovies(movies: List<Movie>) {
         movieList = movies
         notifyDataSetChanged()
 
+    }
+    class OnItemClickListener(val clickListener: (movie: Movie) -> Unit) {
+        fun onClick(movie: Movie) = clickListener(movie)
     }
 }

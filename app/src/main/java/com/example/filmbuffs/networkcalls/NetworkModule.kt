@@ -1,13 +1,11 @@
 package com.example.filmbuffs.networkcalls
 
-import com.example.filmbuffs.models.popularmoviemodel.Movie
 import com.example.filmbuffs.models.popularmoviemodel.TotalResults
 import com.example.filmbuffs.models.singlemoviemodel.SingleMovieDetail
 import com.example.filmbuffs.util.Constants.Companion.BASE_URL
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class NetworkModule {
     //Setting up the Retrofit object
@@ -23,7 +21,7 @@ class NetworkModule {
     fun getMovies(): Call<TotalResults> {
         return api.getMovies()
     }
-     fun getMovie(id: Int): Call<SingleMovieDetail> {
-        return api.getMovie(id)
+     fun getMovie(movieId: String): Call<SingleMovieDetail> {
+        return api.getMovie(movieId)
     }
 }

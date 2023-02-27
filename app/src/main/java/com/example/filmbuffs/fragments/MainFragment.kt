@@ -21,11 +21,13 @@ class MainFragment : Fragment() {
 
     private val TAG = "Main Fragment"
     private lateinit var navController: NavController
+
     //
     private val myViewModel: MainViewModel by viewModels()
+
     //
     private var recyclerview: RecyclerView? = null
-    private var adapter: MovieAdapter? = null
+    private lateinit var adapter: MovieAdapter
 
 
     override fun onCreateView(
@@ -33,18 +35,28 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_main,container,false)
-        Log.d(TAG,"Entered view")
+        val view = inflater.inflate(R.layout.fragment_main, container, false)
+        Log.d(TAG, "Entered view")
         recyclerview = view.findViewById(R.id.movielist)
-        recyclerview?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false)
-        adapter = MovieAdapter(requireContext())
+        recyclerview?.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        adapter = MovieAdapter()
         recyclerview?.adapter = adapter
         myViewModel.getMovies()
-        myViewModel.movies.observe(viewLifecycleOwner,{ movies -> adapter?.updateMovies(movies) })
+        myViewModel.movies.observe(viewLifecycleOwner) { movies ->
+            adapter.updateMovies(movies)
+        }
+
+        adapter.setOnItemClickListener(MovieAdapter.OnItemClickListener {
+            Log.d(TAG, "Clicked on ${it.title}")
+            val bundle = Bundle()
+            bundle.putInt("movie_id", it.id)
+            MovieDetailFragment().arguments = bundle
+            findNavController().navigate(R.id.action_mainFragment_to_movieDetailFragment2, bundle)
+        }
+        )
 
         return view
-        Log.d(TAG,"Out of the view")
     }
-
 
 }

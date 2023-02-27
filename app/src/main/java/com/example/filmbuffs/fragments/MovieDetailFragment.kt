@@ -47,13 +47,13 @@ class MovieDetailFragment : Fragment() {
         movieposter = view.findViewById(R.id.moviebanner)
         val movieId = requireArguments().getInt("movie_id")
         viewModel.getMovie(movieId)
-        viewModel.movie.observe(viewLifecycleOwner,{ movie ->
+        viewModel.movie.observe(viewLifecycleOwner) { movie ->
             moviedescription!!.text = movie.overview
             Picasso.with(activity)
-                .load("https://image.tmdb.org/t/p/original"+ movie.posterPath)
+                .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
                 .placeholder(R.drawable.ic_action_placeholder)
                 .error(R.drawable.ic_action_error_placeholder)
                 .into(movieposter)
-        })
+        }
     }
 }

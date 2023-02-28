@@ -1,7 +1,9 @@
 package com.example.filmbuffs.networkcalls
 
+import com.example.filmbuffs.models.castmodel.CastList
 import com.example.filmbuffs.models.popularmoviemodel.TotalResults
 import com.example.filmbuffs.models.singlemoviemodel.SingleMovieDetail
+import com.example.filmbuffs.models.topratedmovies.TopRatedMovies
 import com.example.filmbuffs.util.Constants.Companion.BASE_URL
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -23,5 +25,11 @@ class NetworkModule {
     }
      fun getMovie(movieId: String): Call<SingleMovieDetail> {
         return api.getMovie(movieId)
+    }
+    fun getCast(movieId: String): Call<CastList>{
+        return api.getCast(movieId)
+    }
+    fun getTopMovies(): Call<TopRatedMovies> {
+        return api.getTopMovies()
     }
 }

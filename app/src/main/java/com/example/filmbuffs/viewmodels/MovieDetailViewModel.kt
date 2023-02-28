@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.filmbuffs.models.castmodel.Cast
+import com.example.filmbuffs.models.castmodel.CastList
 import com.example.filmbuffs.models.singlemoviemodel.SingleMovieDetail
 import com.example.filmbuffs.networkcalls.MoviesApi
 import com.example.filmbuffs.networkcalls.NetworkModule
@@ -16,6 +18,9 @@ class MovieDetailViewModel: ViewModel() {
     private val _movie = MutableLiveData<SingleMovieDetail>()
     val movie: LiveData<SingleMovieDetail>
         get() = _movie
+    private val _cast = MutableLiveData<List<Cast>>()
+    val cast: LiveData<List<Cast>>
+        get() = _cast
     //Retrofit instance
     private val apiService = NetworkModule().getRetrofitInstance().create(MoviesApi::class.java)
 
@@ -37,5 +42,20 @@ class MovieDetailViewModel: ViewModel() {
         })
 
 
+    }
+    fun getCastbyId(movieId: String){
+        val call = apiService.getCast(movieId)
+        call.enqueue(object: Callback<CastList> {
+            override fun onFailure(call: Call<CastList>, t: Throwable) {
+                Log.d(TAG,t.message!!)
+            }
+            override fun onResponse(call: Call<CastList>, response: Response<CastList>) {
+                if(response.isSuccessful) {
+                    Log.d(TAG,"Success!")
+                    val cast = response.body()!!.cast
+                    _cast.postValue(cast)
+                }
+            }
+        })
     }
 }

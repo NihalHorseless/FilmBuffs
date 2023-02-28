@@ -1,6 +1,5 @@
 package com.example.filmbuffs.adapters
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,21 +7,20 @@ import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.R
 import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
-import com.example.filmbuffs.models.popularmoviemodel.Movie
 import com.squareup.picasso.Picasso
 
-internal class MovieAdapter()
-    : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+internal class TopMovieAdapter()
+    : RecyclerView.Adapter<TopMovieAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = MoviePosterWithTitleBinding.bind(itemView)
         val txtTitle = binding.movieTitle
         val imgPoster = binding.moviePoster
         val progressbar: ProgressBar = binding.progressBar
-        fun bindItems(movie: Movie, listener: OnItemClickListener) {
-            txtTitle.text = movie.title
+        fun bindItems(topmovie: com.example.filmbuffs.models.topratedmovies.Result, listener: OnItemClickListener) {
+            txtTitle.text = topmovie.title
             progressbar.visibility = View.VISIBLE
             Picasso.with(itemView.context)
-                .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
+                .load("https://image.tmdb.org/t/p/original" + topmovie.posterPath)
                 .error(R.drawable.ic_action_error_placeholder)
                 .noFade()
                 .into(imgPoster,object: com.squareup.picasso.Callback{
@@ -36,12 +34,12 @@ internal class MovieAdapter()
 
                 })
             itemView.setOnClickListener {
-                listener.onClick(movie)
+                listener.onClick(topmovie)
             }
 
         }
     }
-    private var movieList: List<Movie> = emptyList()
+    private var topmovieList: List<com.example.filmbuffs.models.topratedmovies.Result> = emptyList()
     private var listener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -53,20 +51,20 @@ internal class MovieAdapter()
         this.listener = listener
     }
     override fun getItemCount(): Int {
-        return movieList.size
+        return topmovieList.size
     }
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val movie: Movie = movieList[position]
-        holder.bindItems(movie, listener!!)
+        val topmovie: com.example.filmbuffs.models.topratedmovies.Result = topmovieList[position]
+        holder.bindItems(topmovie, listener!!)
     }
-    fun updateMovies(movies: List<Movie>) {
-        movieList = movies
+    fun updateMovies(topmovies: List<com.example.filmbuffs.models.topratedmovies.Result>) {
+        topmovieList = topmovies
         notifyDataSetChanged()
 
     }
-    class OnItemClickListener(val clickListener: (movie: Movie) -> Unit) {
-        fun onClick(movie: Movie) = clickListener(movie)
+    class OnItemClickListener(val clickListener: (topmovie: com.example.filmbuffs.models.topratedmovies.Result) -> Unit) {
+        fun onClick(topmovie: com.example.filmbuffs.models.topratedmovies.Result) = clickListener(topmovie)
     }
 }

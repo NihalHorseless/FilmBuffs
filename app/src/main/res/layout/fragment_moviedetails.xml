@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/movieDetails"
     tools:context=".fragments.MovieDetailFragment"
-    android:background="#B388FF">
+    android:background="#556678">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
+        <ImageButton
+            android:id="@+id/favorite_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="#556678"
+            android:contentDescription="@string/hello_blank_fragment"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/cast_list"
+            app:srcCompat="@android:drawable/btn_star" />
 
         <ImageView
             android:id="@+id/moviebanner"
@@ -34,7 +45,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/moviecontentstxt"
@@ -45,30 +56,21 @@
             android:layout_marginEnd="12dp"
             android:fontFamily="@font/frank_ruhl_libre_medium"
             android:text="In a Galaxy Far Away"
-            android:textColor="#757575"
+            android:textColor="#14171C"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/moviebanner" />
 
-        <Button
-            android:id="@+id/likeButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="36dp"
-            android:text="Like"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/cast_list"
             android:layout_width="match_parent"
-            android:layout_height="96dp"
+            android:layout_height="180dp"
             android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/moviecontentstxt" />
+            app:layout_constraintTop_toBottomOf="@+id/moviecontentstxt"
+            tools:listitem="@layout/movie_cast_item"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
+</ScrollView>

@@ -8,6 +8,14 @@
     tools:context=".MainActivity">
 
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movielist"
         android:layout_width="0dp"
@@ -25,7 +33,7 @@
         android:id="@+id/popularmoviestxt"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/benchnine_bold"
         android:text="Popular This Month"
         android:textAlignment="center"
@@ -34,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <TextView
         android:id="@+id/topmovietxt"

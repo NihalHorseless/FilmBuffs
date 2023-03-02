@@ -4,8 +4,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import com.example.filmbuffs.models.popularmoviemodel.TotalResults
 import com.example.filmbuffs.models.singlemoviemodel.SingleMovieDetail
-import com.example.filmbuffs.models.topratedmovies.TopRatedMovies
-import com.example.filmbuffs.util.Constants.Companion.API_KEY
+import com.example.filmbuffs.util.Constants.API_KEY
 import retrofit2.http.Path
 
 interface MoviesApi {
@@ -18,7 +17,7 @@ interface MoviesApi {
      // Get actors by movie id
      @GET("movie/{movie_id}/credits?api_key=$API_KEY")
      fun getCast(@Path("movie_id") movieId: String) : Call<CastList>
-     // Get top rated Movies
-     @GET("movie/top_rated?api_key=$API_KEY")
-     fun getTopMovies(): Call<TopRatedMovies>
+     // Get Searched Movies
+     @GET("search/movie?api_key=${API_KEY}&query={movie_name}&page=1")
+     fun searchMovie(@Path("movie_name") movieName: String) : Call<TotalResults>
 }

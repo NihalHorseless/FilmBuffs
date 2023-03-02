@@ -72,18 +72,6 @@
             app:layout_constraintTop_toBottomOf="@+id/moviecontentstxt"
             tools:listitem="@layout/movie_cast_item"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/backbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="48dp"
-            android:layout_marginBottom="6dp"
-            android:clickable="true"
-            android:contentDescription="@string/hello_blank_fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cast_list"
-            app:srcCompat="@drawable/ic_arrow_back" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
 </ScrollView>

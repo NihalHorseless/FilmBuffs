@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import com.example.filmbuffs.models.castmodel.Cast
 import com.example.filmbuffs.models.castmodel.CastList
 import com.example.filmbuffs.models.singlemoviemodel.SingleMovieDetail
-import com.example.filmbuffs.networkcalls.MoviesApi
 import com.example.filmbuffs.networkcalls.NetworkModule
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,7 +21,7 @@ class MovieDetailViewModel: ViewModel() {
     val cast: LiveData<List<Cast>>
         get() = _cast
     //Retrofit instance
-    private val apiService = NetworkModule().getRetrofitInstance().create(MoviesApi::class.java)
+    private val apiService = NetworkModule.moviesApi
 
     fun getMoviebyId(movieId: String) {
         val call = apiService.getMovie(movieId)

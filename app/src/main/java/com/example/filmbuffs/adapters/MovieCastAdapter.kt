@@ -11,12 +11,12 @@ import com.example.filmbuffs.models.castmodel.Cast
 import com.example.filmbuffs.util.Constants
 import com.squareup.picasso.Picasso
 
-internal class MovieCastAdapter()
+internal class MovieCastAdapter
     : RecyclerView.Adapter<MovieCastAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = MovieCastItemBinding.bind(itemView)
         val txtName = binding.actorname
-        val actor_img = binding.actorImg
+        val actorImg = binding.actorImg
         val progressbar: ProgressBar = binding.actorImgProgressBar
         fun bindItems(cast: Cast) {
             txtName.text = cast.name
@@ -25,7 +25,7 @@ internal class MovieCastAdapter()
                 .load(Constants.BASE_URL_PERSON + cast.profilePath)
                 .error(R.drawable.ic_action_error_placeholder)
                 .noFade()
-                .into(actor_img,object: com.squareup.picasso.Callback{
+                .into(actorImg, object : com.squareup.picasso.Callback {
                     override fun onSuccess() {
                         progressbar.visibility = View.GONE
                     }
@@ -36,6 +36,7 @@ internal class MovieCastAdapter()
                 })
         }
     }
+
     private var castList: List<Cast> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,6 +44,7 @@ internal class MovieCastAdapter()
             .inflate(R.layout.movie_cast_item, parent, false)
         return ViewHolder(view)
     }
+
     override fun getItemCount(): Int {
         return castList.size
     }
@@ -52,6 +54,7 @@ internal class MovieCastAdapter()
         val cast: Cast = castList[position]
         holder.bindItems(cast)
     }
+
     fun updateMovies(actors: List<Cast>) {
         castList = actors
         notifyDataSetChanged()

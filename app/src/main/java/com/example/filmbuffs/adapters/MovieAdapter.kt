@@ -11,8 +11,7 @@ import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
 import com.example.filmbuffs.models.popularmoviemodel.Movie
 import com.squareup.picasso.Picasso
 
-internal class MovieAdapter()
-    : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+internal class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = MoviePosterWithTitleBinding.bind(itemView)
         val txtTitle = binding.movieTitle
@@ -25,7 +24,7 @@ internal class MovieAdapter()
                 .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
                 .error(R.drawable.ic_action_error_placeholder)
                 .noFade()
-                .into(imgPoster,object: com.squareup.picasso.Callback{
+                .into(imgPoster, object : com.squareup.picasso.Callback {
                     override fun onSuccess() {
                         progressbar.visibility = View.GONE
                     }
@@ -41,6 +40,7 @@ internal class MovieAdapter()
 
         }
     }
+
     private var movieList: List<Movie> = emptyList()
     private var listener: OnItemClickListener? = null
 
@@ -49,9 +49,11 @@ internal class MovieAdapter()
             .inflate(R.layout.movie_poster_with_title, parent, false)
         return ViewHolder(view)
     }
-    fun setOnItemClickListener(listener: OnItemClickListener){
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
+
     override fun getItemCount(): Int {
         return movieList.size
     }
@@ -61,11 +63,13 @@ internal class MovieAdapter()
         val movie: Movie = movieList[position]
         holder.bindItems(movie, listener!!)
     }
+
     fun updateMovies(movies: List<Movie>) {
         movieList = movies
         notifyDataSetChanged()
 
     }
+
     class OnItemClickListener(val clickListener: (movie: Movie) -> Unit) {
         fun onClick(movie: Movie) = clickListener(movie)
     }

@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.R
@@ -19,8 +18,6 @@ import com.example.filmbuffs.viewmodels.MainViewModel
 class MainFragment : Fragment() {
 
     private val TAG = "Main Fragment"
-    private lateinit var navController: NavController
-
     // View Model
     private val myViewModel: MainViewModel by viewModels()
 
@@ -28,6 +25,7 @@ class MainFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var movieAdapter: MovieAdapter
     private lateinit var binding: FragmentMainBinding
+    private lateinit var movieTxt: TextView
 
 
     override fun onCreateView(
@@ -46,7 +44,8 @@ class MainFragment : Fragment() {
         myViewModel.movies.removeObservers(viewLifecycleOwner)
     }
 
-    fun initializeFields() {
+    private fun initializeFields() {
+        movieTxt = binding.popularmoviestxt
         recyclerView = binding.movielist
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         movieAdapter = MovieAdapter()
@@ -61,15 +60,20 @@ class MainFragment : Fragment() {
         movieAdapter.setOnItemClickListener(MovieAdapter.OnItemClickListener {
             Log.d(TAG, "Clicked on ${it.title}")
             val bundle = Bundle()
+            val fragment = MovieDetailFragment()
+            fragment.arguments = bundle
             bundle.putInt("movie_id", it.id)
             MovieDetailFragment().arguments = bundle
-            findNavController().navigate(R.id.action_mainFragment_to_movieDetailFragment, bundle)
-            Log.d(TAG, "Navigation Done!")
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainer,fragment)
+                addToBackStack(null)
+                commit()
+            }
         })
     }
 
     fun search(query: String) {
-        binding.popularmoviestxt.text = "Here are the Results for : $query"
+        movieTxt.text = "Here are the Results for : $query"
         myViewModel.searchMovies(query)
         myViewModel.movies.observe(viewLifecycleOwner) { movies ->
             if (isAdded) {

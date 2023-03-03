@@ -11,14 +11,14 @@ import com.example.filmbuffs.fragments.MainFragment
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val TAG = "Main Activity"
-    private lateinit var mainFragment : MainFragment
+    private var mainFragment = MainFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainFragment = MainFragment()
+
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentContainer, mainFragment)
+            .add(R.id.fragmentContainer, mainFragment)
             .commit()
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -48,16 +48,16 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
             }
             R.id.action_search -> {
                 // handling of the search button click
-                return true
+                true
             }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }

@@ -26,7 +26,7 @@
         android:id="@+id/popularmoviestxt"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="52dp"
         android:fontFamily="@font/benchnine_bold"
         android:text="Popular This Month"
         android:textAlignment="center"

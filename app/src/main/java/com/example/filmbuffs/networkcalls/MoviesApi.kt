@@ -6,6 +6,7 @@ import com.example.filmbuffs.models.popularmoviemodel.TotalResults
 import com.example.filmbuffs.models.singlemoviemodel.SingleMovieDetail
 import com.example.filmbuffs.util.Constants.API_KEY
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MoviesApi {
      // Get popular Movies
@@ -18,6 +19,6 @@ interface MoviesApi {
      @GET("movie/{movie_id}/credits?api_key=$API_KEY")
      fun getCast(@Path("movie_id") movieId: String) : Call<CastList>
      // Get Searched Movies
-     @GET("search/movie?api_key=${API_KEY}&query={movie_name}&page=1")
-     fun searchMovie(@Path("movie_name") movieName: String) : Call<TotalResults>
+     @GET("search/movie?api_key=${API_KEY}")
+     fun searchMovie(@Query("query") movieName: String) : Call<TotalResults>
 }

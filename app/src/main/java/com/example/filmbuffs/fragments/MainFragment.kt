@@ -41,6 +41,11 @@ class MainFragment : Fragment() {
         return view
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        myViewModel.movies.removeObservers(viewLifecycleOwner)
+    }
+
     fun initializeFields() {
         recyclerView = binding.movielist
         recyclerView.layoutManager = GridLayoutManager(context, 2)
@@ -59,17 +64,19 @@ class MainFragment : Fragment() {
             bundle.putInt("movie_id", it.id)
             MovieDetailFragment().arguments = bundle
             findNavController().navigate(R.id.action_mainFragment_to_movieDetailFragment, bundle)
+            Log.d(TAG, "Navigation Done!")
         })
     }
 
     fun search(query: String) {
+        binding.popularmoviestxt.text = "Here are the Results for : $query"
         myViewModel.searchMovies(query)
         myViewModel.movies.observe(viewLifecycleOwner) { movies ->
-            movieAdapter.updateMovies(
-                movies
-            )
-        }
+            if (isAdded) {
+                movieAdapter.updateMovies(movies)
+            }
 
+        }
     }
 
     fun showDefaultResults() {
@@ -81,14 +88,6 @@ class MainFragment : Fragment() {
         }
 
     }
-    fun showSearchResults(){
-        binding.movielist.apply {
-            layoutManager = GridLayoutManager(context, 2)
-            adapter = movieAdapter
-        }
-        myViewModel.movies.observe(viewLifecycleOwner) {
-            movies -> movieAdapter.updateMovies(movies)
-        }
-    }
+
 
 }

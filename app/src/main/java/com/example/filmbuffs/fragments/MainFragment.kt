@@ -62,4 +62,33 @@ class MainFragment : Fragment() {
         })
     }
 
+    fun search(query: String) {
+        myViewModel.searchMovies(query)
+        myViewModel.movies.observe(viewLifecycleOwner) { movies ->
+            movieAdapter.updateMovies(
+                movies
+            )
+        }
+
+    }
+
+    fun showDefaultResults() {
+        myViewModel.getMovies()
+        myViewModel.movies.observe(viewLifecycleOwner) { movies ->
+            movieAdapter.updateMovies(
+                movies
+            )
+        }
+
+    }
+    fun showSearchResults(){
+        binding.movielist.apply {
+            layoutManager = GridLayoutManager(context, 2)
+            adapter = movieAdapter
+        }
+        myViewModel.movies.observe(viewLifecycleOwner) {
+            movies -> movieAdapter.updateMovies(movies)
+        }
+    }
+
 }

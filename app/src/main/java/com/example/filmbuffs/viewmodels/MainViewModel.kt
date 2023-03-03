@@ -32,7 +32,22 @@ class MainViewModel : ViewModel() {
             }
         })
     }
+
     fun searchMovies(query: String) {
+        val call = apiService.searchMovie(query)
+        call.enqueue(object : Callback<TotalResults> {
+            override fun onFailure(call: Call<TotalResults>, t: Throwable) {
+                Log.d(TAG, t.message!!)
+            }
+
+            override fun onResponse(call: Call<TotalResults>, response: Response<TotalResults>) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "Success!")
+                    val movies = response.body()!!.movies
+                    _movies.postValue(movies)
+                }
+            }
+        })
 
     }
 }

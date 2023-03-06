@@ -23,7 +23,7 @@ class MovieDetailViewModel: ViewModel() {
     //Retrofit instance
     private val apiService = NetworkModule.moviesApi
 
-    fun getMoviebyId(movieId: String) {
+    fun getMovieById(movieId: String) {
         val call = apiService.getMovie(movieId)
         call.enqueue(object: Callback<SingleMovieDetail> {
             override fun onFailure(call: Call<SingleMovieDetail>, t: Throwable) {
@@ -42,7 +42,7 @@ class MovieDetailViewModel: ViewModel() {
 
 
     }
-    fun getCastbyId(movieId: String){
+    fun getCastById(movieId: String){
         val call = apiService.getCast(movieId)
         call.enqueue(object: Callback<CastList> {
             override fun onFailure(call: Call<CastList>, t: Throwable) {

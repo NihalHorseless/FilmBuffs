@@ -11,11 +11,11 @@ import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
 import com.example.filmbuffs.models.popularmoviemodel.Movie
 import com.squareup.picasso.Picasso
 
-internal class MovieAdapter() : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = MoviePosterWithTitleBinding.bind(itemView)
-        val txtTitle = binding.movieTitle
-        val imgPoster = binding.moviePoster
+        private val binding = MoviePosterWithTitleBinding.bind(itemView)
+        private val txtTitle = binding.movieTitle
+        private val imgPoster = binding.moviePoster
         val progressbar: ProgressBar = binding.progressBar
         fun bindItems(movie: Movie, listener: OnItemClickListener) {
             txtTitle.text = movie.title

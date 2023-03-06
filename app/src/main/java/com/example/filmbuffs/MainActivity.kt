@@ -1,8 +1,8 @@
 package com.example.filmbuffs
 
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        // This adds the main fragment to our activity
         supportFragmentManager
             .beginTransaction()
             .add(R.id.fragmentContainer, mainFragment)
@@ -52,12 +52,25 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
             android.R.id.home -> {
                 onBackPressed()
                 true
+
             }
             R.id.action_search -> {
                 // handling of the search button click
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onBackPressed() {
+        val searchView = findViewById<SearchView>(R.id.action_search)
+        if (mainFragment.isVisible) {
+            searchView.clearFocus()
+            searchView.setQuery("", false)
+            mainFragment.showDefaultResults()
+
+        } else {
+            super.onBackPressed()
         }
     }
 }

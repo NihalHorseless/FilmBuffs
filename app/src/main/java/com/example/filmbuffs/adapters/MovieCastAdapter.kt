@@ -14,24 +14,24 @@ import com.squareup.picasso.Picasso
 internal class MovieCastAdapter
     : RecyclerView.Adapter<MovieCastAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val binding = MovieCastItemBinding.bind(itemView)
-        val txtName = binding.actorname
-        val actorImg = binding.actorImg
-        val progressbar: ProgressBar = binding.actorImgProgressBar
+        private val binding = MovieCastItemBinding.bind(itemView)
+        private val txtName = binding.actorname
+        private val actorImg = binding.actorImg
+        val progressBar: ProgressBar = binding.actorImgProgressBar
         fun bindItems(cast: Cast) {
             txtName.text = cast.name
-            progressbar.visibility = View.VISIBLE
+            progressBar.visibility = View.VISIBLE
             Picasso.with(itemView.context)
                 .load(Constants.BASE_URL_PERSON + cast.profilePath)
                 .error(R.drawable.ic_action_error_placeholder)
                 .noFade()
                 .into(actorImg, object : com.squareup.picasso.Callback {
                     override fun onSuccess() {
-                        progressbar.visibility = View.GONE
+                        progressBar.visibility = View.GONE
                     }
 
                     override fun onError() {
-                        progressbar.visibility = View.GONE
+                        progressBar.visibility = View.GONE
                     }
                 })
         }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +32,7 @@ class MainFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -44,6 +45,7 @@ class MainFragment : Fragment() {
         myViewModel.movies.removeObservers(viewLifecycleOwner)
     }
 
+
     private fun initializeFields() {
         movieTxt = binding.popularmoviestxt
         recyclerView = binding.movielist
@@ -51,12 +53,7 @@ class MainFragment : Fragment() {
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
 
-        myViewModel.getMovies()
-        myViewModel.movies.observe(viewLifecycleOwner) { movies ->
-            movieAdapter.updateMovies(
-                movies
-            )
-        }
+        showDefaultResults()
         movieAdapter.setOnItemClickListener(MovieAdapter.OnItemClickListener {
             Log.d(TAG, "Clicked on ${it.title}")
             val bundle = Bundle()
@@ -90,6 +87,7 @@ class MainFragment : Fragment() {
                 movies
             )
         }
+        movieTxt.text = "Popular This Month"
 
     }
 

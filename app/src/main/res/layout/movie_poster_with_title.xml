@@ -5,12 +5,12 @@
     android:layout_width="160dp"
     android:layout_height="240dp"
     android:layout_margin="10dp"
-    android:background="#E8EAF6">
+    android:background="#556678">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#E8EAF6"
+        android:background="#556678"
         android:layout_gravity="center"
         app:cardCornerRadius="4dp">
 
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_gravity="bottom"
-            android:background="#E8EAF6"
+            android:background="#556678"
             android:fontFamily="@font/frank_ruhl_libre_medium"
             android:text="TextView"
             android:textAlignment="center"
@@ -29,7 +29,7 @@
             android:id="@+id/movie_poster"
             android:layout_width="match_parent"
             android:layout_height="205dp"
-            android:background="#E8EAF6"
+            android:background="#556678"
             android:contentDescription="TODO" />
 
         <ProgressBar

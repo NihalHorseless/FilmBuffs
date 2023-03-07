@@ -7,22 +7,55 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import com.example.filmbuffs.fragments.FavoriteMoviesFragment
 import com.example.filmbuffs.fragments.MainFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private val TAG = "Main Activity"
     private var mainFragment = MainFragment()
+    private var favoriteMoviesFragment = FavoriteMoviesFragment()
+    private lateinit var bottomNavView: BottomNavigationView
+    private lateinit var toolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // This adds the main fragment to our activity
+        setUpToolbar()
+        setUpBottomNav()
+    }
+
+    private fun setUpBottomNav() {
+        bottomNavView = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNavView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home_page -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.fragmentContainer, mainFragment)
+                        commit()
+                    }
+                }
+                R.id.favorites_page -> {
+                    supportFragmentManager.beginTransaction().apply {
+                        replace(R.id.fragmentContainer, favoriteMoviesFragment)
+                        commit()
+                    }
+                }
+            }
+            true
+
+        }
+    }
+
+    private fun setUpToolbar() {
         supportFragmentManager
             .beginTransaction()
             .add(R.id.fragmentContainer, mainFragment)
             .commit()
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

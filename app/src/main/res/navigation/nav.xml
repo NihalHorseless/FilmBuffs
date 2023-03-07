@@ -16,6 +16,9 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_mainFragment_to_favoriteMovies2"
+            app:destination="@id/favoriteMovies" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
@@ -25,5 +28,17 @@
         <action
             android:id="@+id/action_movieDetailFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteMovies"
+        android:name="com.example.filmbuffs.fragments.FavoriteMoviesFragment"
+        android:label="fragment_favorite_movies"
+        tools:layout="@layout/fragment_favorite_movies" >
+        <action
+            android:id="@+id/action_favoriteMovies_to_mainFragment"
+            app:destination="@id/mainFragment" />
+        <action
+            android:id="@+id/action_favoriteMovies_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 </navigation>

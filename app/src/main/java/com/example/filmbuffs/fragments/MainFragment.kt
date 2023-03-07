@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +18,7 @@ import com.example.filmbuffs.viewmodels.MainViewModel
 class MainFragment : Fragment() {
 
     private val TAG = "Main Fragment"
+
     // View Model
     private val myViewModel: MainViewModel by viewModels()
 
@@ -62,7 +62,13 @@ class MainFragment : Fragment() {
             bundle.putInt("movie_id", it.id)
             MovieDetailFragment().arguments = bundle
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer,fragment)
+                setCustomAnimations(
+                    com.google.android.material.R.anim.abc_slide_in_bottom,
+                    com.google.android.material.R.anim.abc_slide_out_bottom,
+                    com.google.android.material.R.anim.abc_slide_in_bottom,
+                    com.google.android.material.R.anim.abc_slide_out_bottom
+                )
+                replace(R.id.fragmentContainer, fragment)
                 addToBackStack(null)
                 commit()
             }

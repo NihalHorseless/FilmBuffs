@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.filmbuffs.fragments.MainFragment"
-        android:label="fragment_main"
+        android:label="@string/main_fragment"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_movieDetailFragment"
@@ -17,22 +17,26 @@
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
         <action
-            android:id="@+id/action_mainFragment_to_favoriteMovies2"
-            app:destination="@id/favoriteMovies" />
+            android:id="@+id/action_mainFragment_to_favoriteMovies"
+            app:destination="@id/favoriteMoviesFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.example.filmbuffs.fragments.MovieDetailFragment"
-        android:label="fragment_moviedetails"
+        android:label="@string/detail_fragment"
         tools:layout="@layout/fragment_moviedetails" >
         <action
             android:id="@+id/action_movieDetailFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <argument
+            android:name="movieId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
-        android:id="@+id/favoriteMovies"
+        android:id="@+id/favoriteMoviesFragment"
         android:name="com.example.filmbuffs.fragments.FavoriteMoviesFragment"
-        android:label="fragment_favorite_movies"
+        android:label="@string/favorite_movies"
         tools:layout="@layout/fragment_favorite_movies" >
         <action
             android:id="@+id/action_favoriteMovies_to_mainFragment"

@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">FilmBuffs</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_search">search</string>
+    <string name="detail_fragment">Movie Details</string>
+    <string name="favorite_movies">Favorite Movies</string>
+    <string name="main_fragment">Main Fragment</string>
+    <string name="popular_text">Popular This Month</string>
+    <string name="default_movieTxt">In a Galaxy Far Away</string>
+    <string name="default_actor">Greta Thunberg</string>
+    <string name="actors_image">Insert Actor Picture Here</string>
+    <string name="movie_title_desc">Insert Movie Title Here</string>
+    <string name="movie_poster_desc">Insert Movie Poster Here</string>
+    <string name="searched_txt">Here are the results for : </string>
+    <string name="your_favorites">Your Favorites</string>
+    <string name="home_menu">Home</string>
+    <string name="favorites_menu">Favorites</string>
 </resources>

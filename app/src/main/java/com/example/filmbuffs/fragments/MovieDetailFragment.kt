@@ -1,15 +1,17 @@
 package com.example.filmbuffs.fragments
 
 import android.os.Bundle
-import android.util.Log
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.filmbuffs.MainActivity
 import com.example.filmbuffs.R
 import com.example.filmbuffs.adapters.MovieCastAdapter
 import com.example.filmbuffs.databinding.FragmentMoviedetailsBinding
@@ -18,7 +20,7 @@ import com.squareup.picasso.Picasso
 
 
 class MovieDetailFragment : Fragment() {
-    private val TAG = "Detail Fragment"
+    private val TAG = "DetailFragment"
 
     //ViewModel object
     private val viewModel: MovieDetailViewModel by viewModels()
@@ -28,12 +30,17 @@ class MovieDetailFragment : Fragment() {
     private var moviePoster: ImageView? = null
     private lateinit var recyclerview: RecyclerView
     private lateinit var adapter: MovieCastAdapter
+
+    //Binding Object
     private lateinit var binding: FragmentMoviedetailsBinding
+
+    //Args
+    private val args by navArgs<MovieDetailFragmentArgs>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d(TAG, "OPEN")
         // Inflate the layout for this fragment
         binding = FragmentMoviedetailsBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -49,12 +56,15 @@ class MovieDetailFragment : Fragment() {
     private fun initializeView() {
         movieDescription = binding.moviecontentstxt
         moviePoster = binding.moviebanner
+
         recyclerview = binding.castList
         recyclerview.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
         adapter = MovieCastAdapter()
         recyclerview.adapter = adapter
-        val movieId = requireArguments().getInt("movie_id").toString()
+
+        val movieId = args.movieId.toString()
         viewModel.getMovieById(movieId)
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             movieDescription!!.text = movie.overview

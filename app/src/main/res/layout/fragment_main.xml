@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#556678"
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
@@ -12,8 +11,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movielist"
         android:layout_width="0dp"
-        android:layout_height="600dp"
-        android:layout_marginTop="24dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,9 +24,9 @@
         android:id="@+id/popularmoviestxt"
         android:layout_width="0dp"
         android:layout_height="30dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/benchnine_bold"
-        android:text="Popular This Month"
+        android:text="@string/popular_text"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"

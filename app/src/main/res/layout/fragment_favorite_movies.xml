@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#556678"
+    android:background="@color/white"
     android:orientation="horizontal"
     tools:context=".MainActivity">
 
@@ -12,9 +12,9 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/benchnine_bold"
-        android:text="Your Favorites"
+        android:text="@string/your_favorites"
         android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

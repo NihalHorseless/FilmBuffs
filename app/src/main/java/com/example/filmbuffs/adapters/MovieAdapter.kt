@@ -14,12 +14,15 @@ import com.squareup.picasso.Picasso
 internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = MoviePosterWithTitleBinding.bind(itemView)
+
         private val txtTitle = binding.movieTitle
         private val imgPoster = binding.moviePoster
         val progressbar: ProgressBar = binding.progressBar
+
         fun bindItems(movie: Movie, listener: OnItemClickListener) {
             txtTitle.text = movie.title
             progressbar.visibility = View.VISIBLE
+
             Picasso.with(itemView.context)
                 .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
                 .error(R.drawable.ic_action_error_placeholder)
@@ -42,6 +45,7 @@ internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
     }
 
     private var movieList: List<Movie> = emptyList()
+
     private var listener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

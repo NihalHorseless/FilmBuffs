@@ -8,6 +8,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/primary"
         app:cardCornerRadius="4dp">
 
         <TextView
@@ -15,18 +16,18 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="bottom"
-            android:background="#556678"
+            android:background="@color/primary"
             android:fontFamily="@font/benchnine_bold"
-            android:text="TextView"
+            android:text="@string/default_actor"
             android:textAlignment="center"
-            android:textColor="#14171C" />
+            android:textColor="@color/divider_color" />
 
         <ImageView
             android:id="@+id/actor_img"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:background="#556678"
-            android:contentDescription="TODO" />
+            android:background="@color/primary"
+            android:contentDescription="@string/actors_image" />
 
         <ProgressBar
             android:id="@+id/actor_img_progressBar"

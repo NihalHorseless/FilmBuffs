@@ -13,13 +13,17 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MovieDetailViewModel: ViewModel() {
+
     private val TAG : String = "MovieDetailViewModel"
+
     private val _movie = MutableLiveData<SingleMovieDetail>()
     val movie: LiveData<SingleMovieDetail>
         get() = _movie
+
     private val _cast = MutableLiveData<List<Cast>>()
     val cast: LiveData<List<Cast>>
         get() = _cast
+
     //Retrofit instance
     private val apiService = NetworkModule.moviesApi
 

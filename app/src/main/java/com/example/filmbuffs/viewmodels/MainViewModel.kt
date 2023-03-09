@@ -10,11 +10,15 @@ import com.example.filmbuffs.networkcalls.NetworkModule
 import retrofit2.*
 
 class MainViewModel : ViewModel() {
+
     private val TAG: String = "MainViewModel"
-    private val apiService = NetworkModule.moviesApi
+
     private val _movies = MutableLiveData<List<Movie>>()
     val movies: LiveData<List<Movie>>
         get() = _movies
+
+    //Retrofit instance
+    private val apiService = NetworkModule.moviesApi
 
     fun getMovies() {
         val call = apiService.getMovies()

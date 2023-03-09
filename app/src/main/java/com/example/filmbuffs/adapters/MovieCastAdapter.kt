@@ -15,12 +15,15 @@ internal class MovieCastAdapter
     : RecyclerView.Adapter<MovieCastAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = MovieCastItemBinding.bind(itemView)
+
         private val txtName = binding.actorname
         private val actorImg = binding.actorImg
         val progressBar: ProgressBar = binding.actorImgProgressBar
+
         fun bindItems(cast: Cast) {
             txtName.text = cast.name
             progressBar.visibility = View.VISIBLE
+
             Picasso.with(itemView.context)
                 .load(Constants.BASE_URL_PERSON + cast.profilePath)
                 .error(R.drawable.ic_action_error_placeholder)

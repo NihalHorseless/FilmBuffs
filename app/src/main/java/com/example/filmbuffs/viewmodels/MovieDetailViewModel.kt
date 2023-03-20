@@ -1,18 +1,20 @@
 package com.example.filmbuffs.viewmodels
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.filmbuffs.database.LocalMovie
 import com.example.filmbuffs.models.castmodel.Cast
 import com.example.filmbuffs.models.castmodel.CastList
 import com.example.filmbuffs.models.singlemoviemodel.SingleMovieDetail
 import com.example.filmbuffs.networkcalls.NetworkModule
+import com.example.filmbuffs.repository.MovieRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieDetailViewModel: ViewModel() {
+class MovieDetailViewModel(private val repository: MovieRepository): ViewModel() {
 
     private val TAG : String = "MovieDetailViewModel"
 
@@ -26,6 +28,12 @@ class MovieDetailViewModel: ViewModel() {
 
     //Retrofit instance
     private val apiService = NetworkModule.moviesApi
+
+    fun addMovie(favMovie : LocalMovie) {
+        viewModelScope.launch (Dispatchers.IO) {
+            repository.addMovie(favMovie)
+        }
+    }
 
     fun getMovieById(movieId: String) {
         val call = apiService.getMovie(movieId)
@@ -60,5 +68,16 @@ class MovieDetailViewModel: ViewModel() {
                 }
             }
         })
+    }
+    class MovieDetailViewModelFactory(private val repository: MovieRepository) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(MovieDetailViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return MovieDetailViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+
+        }
     }
 }

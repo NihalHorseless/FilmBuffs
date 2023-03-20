@@ -1,22 +1,22 @@
 package com.example.filmbuffs.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
     @Insert
-    fun insertAll(vararg movies: LocalMovie)
+    suspend fun insert(vararg movies: LocalMovie)
 
     @Delete
-    fun delete(movie: LocalMovie)
+    suspend fun delete(movie: LocalMovie)
 
     @Query("SELECT * FROM movies")
-    fun getAll(): Flow<LocalMovie>
+    suspend fun getAll(): List<LocalMovie>
 
     @Query("SELECT * FROM movies WHERE movieName = :searchedMovie")
-    fun loadSearchedMovie(searchedMovie: String): Array<LocalMovie>
+    suspend fun loadSearchedMovie(searchedMovie: String): List<LocalMovie>
 }

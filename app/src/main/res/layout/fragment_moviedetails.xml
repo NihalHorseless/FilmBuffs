@@ -20,20 +20,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/favorite_button"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="48dp"
-            android:layout_marginBottom="24dp"
-            android:background="@color/primary"
-            android:contentDescription="@string/hello_blank_fragment"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cast_list"
-            app:srcCompat="@android:drawable/btn_star" />
-
         <ImageView
             android:id="@+id/moviebanner"
             android:layout_width="match_parent"
@@ -50,7 +36,7 @@
         <TextView
             android:id="@+id/moviecontentstxt"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="0dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
@@ -65,12 +51,28 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cast_list"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="0dp"
             android:layout_marginTop="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/moviecontentstxt"
             tools:listitem="@layout/movie_cast_item" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/favButton"
+            android:src="@drawable/ic_like"
+            android:tint="@color/primary"
+            app:backgroundTint="@color/light_primary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cast_list"
+            app:rippleColor="@color/primary" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

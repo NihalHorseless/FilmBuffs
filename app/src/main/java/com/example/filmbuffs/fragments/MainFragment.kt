@@ -64,7 +64,9 @@ class MainFragment : Fragment(), MenuProvider {
 
         movieAdapter = MovieAdapter()
         recyclerView.adapter = movieAdapter
+
         showDefaultResults()
+
         movieAdapter.setOnItemClickListener(MovieAdapter.OnItemClickListener {
             val action =
                 MainFragmentDirections.actionMainFragmentToMovieDetailFragment().setMovieId(it.id)

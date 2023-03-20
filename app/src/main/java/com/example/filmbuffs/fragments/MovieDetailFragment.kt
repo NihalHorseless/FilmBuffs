@@ -11,11 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.filmbuffs.MainActivity
 import com.example.filmbuffs.R
 import com.example.filmbuffs.adapters.MovieCastAdapter
 import com.example.filmbuffs.databinding.FragmentMoviedetailsBinding
 import com.example.filmbuffs.viewmodels.MovieDetailViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 
 
@@ -30,6 +30,7 @@ class MovieDetailFragment : Fragment() {
     private var moviePoster: ImageView? = null
     private lateinit var recyclerview: RecyclerView
     private lateinit var adapter: MovieCastAdapter
+    private lateinit var favoriteButton: FloatingActionButton
 
     //Binding Object
     private lateinit var binding: FragmentMoviedetailsBinding
@@ -76,6 +77,11 @@ class MovieDetailFragment : Fragment() {
         }
         viewModel.getCastById(movieId)
         viewModel.cast.observe(viewLifecycleOwner) { cast -> adapter.updateMovies(cast) }
+
+        favoriteButton = binding.fab
+        favoriteButton.setOnClickListener {
+
+        }
     }
 
 

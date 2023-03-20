@@ -15,4 +15,5 @@
     <string name="your_favorites">Your Favorites</string>
     <string name="home_menu">Home</string>
     <string name="favorites_menu">Favorites</string>
+    <string name="favButton">Favorite Button</string>
 </resources>

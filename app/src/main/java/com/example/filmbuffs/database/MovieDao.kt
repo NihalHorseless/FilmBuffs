@@ -1,14 +1,10 @@
 package com.example.filmbuffs.database
 
-import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface MovieDao {
-    @Insert
+    @Upsert
     suspend fun insert(vararg movies: LocalMovie)
 
     @Delete

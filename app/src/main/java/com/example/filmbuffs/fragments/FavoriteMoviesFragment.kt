@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.adapters.FavoriteMovieAdapter
-import com.example.filmbuffs.databinding.FragmentMainBinding
+import com.example.filmbuffs.databinding.FragmentFavoriteMoviesBinding
 import com.example.filmbuffs.repository.MovieRepository
 import com.example.filmbuffs.viewmodels.FavoriteMoviesViewModel
 
@@ -26,43 +26,44 @@ class FavoriteMoviesFragment : Fragment() {
     private lateinit var movieAdapter: FavoriteMovieAdapter
 
     //Binding
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: FragmentFavoriteMoviesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        binding = FragmentFavoriteMoviesBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        initializeFields()
-
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize the ViewModel
         favoriteViewModel =
             ViewModelProvider(
                 this,
-                FavoriteMoviesViewModel.FavoriteMoviesViewModelFactory(MovieRepository(requireContext()))
+                FavoriteMoviesViewModel.FavoriteMoviesViewModelFactory(
+                    MovieRepository(
+                        requireContext()
+                    )
+                )
             ).get(
                 FavoriteMoviesViewModel::class.java
             )
-        favoriteViewModel.favMovies.observe(viewLifecycleOwner) { movies ->
-            movieAdapter.updateLocalMovies(
-                movies
-            )
-        }
+        initializeFields()
     }
 
     private fun initializeFields() {
-        recyclerView = binding.movielist
+        recyclerView = binding.favList
         recyclerView.layoutManager = GridLayoutManager(context, 2)
 
         movieAdapter = FavoriteMovieAdapter()
         recyclerView.adapter = movieAdapter
+
+        favoriteViewModel.getAllMovies()
+        favoriteViewModel.favMovies.observe(viewLifecycleOwner) { favMovies ->
+            movieAdapter.updateLocalMovies(favMovies)
+        }
 
         movieAdapter.setOnItemClickListener(FavoriteMovieAdapter.OnItemClickListener {
             val action =

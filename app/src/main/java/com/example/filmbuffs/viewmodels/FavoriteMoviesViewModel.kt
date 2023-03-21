@@ -21,13 +21,9 @@ class FavoriteMoviesViewModel(private val repository: MovieRepository) : ViewMod
         }
     }
     fun getAllMovies() {
-        viewModelScope.launch { try {
+        viewModelScope.launch {
             val response = repository.getAll()
-            _favMovies.value = response
-        }
-            catch (e: Exception){
-                Log.d(TAG,e.message!!)
-            }
+            _favMovies.postValue(response)
         }
     }
     class FavoriteMoviesViewModelFactory(private val repository: MovieRepository) :

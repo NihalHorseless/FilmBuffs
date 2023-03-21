@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.R
 import com.example.filmbuffs.adapters.MovieCastAdapter
+import com.example.filmbuffs.database.LocalMovie
 import com.example.filmbuffs.databinding.FragmentMoviedetailsBinding
+import com.example.filmbuffs.repository.MovieRepository
 import com.example.filmbuffs.viewmodels.MovieDetailViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
@@ -23,7 +25,7 @@ class MovieDetailFragment : Fragment() {
     private val TAG = "DetailFragment"
 
     //ViewModel object
-    private val viewModel: MovieDetailViewModel by viewModels()
+    private lateinit var viewModel: MovieDetailViewModel
 
     //Fields
     private var movieDescription: TextView? = null
@@ -55,6 +57,12 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun initializeView() {
+        viewModel = ViewModelProvider(
+            this, MovieDetailViewModel.MovieDetailViewModelFactory(
+                MovieRepository(requireContext())
+            )
+        ).get(MovieDetailViewModel::class.java)
+
         movieDescription = binding.moviecontentstxt
         moviePoster = binding.moviebanner
 
@@ -80,7 +88,11 @@ class MovieDetailFragment : Fragment() {
 
         favoriteButton = binding.fab
         favoriteButton.setOnClickListener {
-
+            val movie = LocalMovie(
+                viewModel.movie.value!!.id,
+                viewModel.movie.value!!.originalTitle, viewModel.movie.value!!.posterPath
+            )
+            viewModel.addMovie(movie)
         }
     }
 

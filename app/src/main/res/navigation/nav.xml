@@ -18,7 +18,11 @@
             app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_mainFragment_to_favoriteMovies"
-            app:destination="@id/favoriteMoviesFragment" />
+            app:destination="@id/favoriteMoviesFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
@@ -40,9 +44,17 @@
         tools:layout="@layout/fragment_favorite_movies" >
         <action
             android:id="@+id/action_favoriteMovies_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@android:anim/slide_out_right"
+            app:exitAnim="@android:anim/slide_in_left"
+            app:popEnterAnim="@android:anim/slide_out_right"
+            app:popExitAnim="@android:anim/slide_in_left" />
         <action
             android:id="@+id/action_favoriteMovies_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 </navigation>

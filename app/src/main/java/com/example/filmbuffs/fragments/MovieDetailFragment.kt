@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -32,7 +33,10 @@ class MovieDetailFragment : Fragment() {
     private var moviePoster: ImageView? = null
     private lateinit var recyclerview: RecyclerView
     private lateinit var adapter: MovieCastAdapter
+
+    //Buttons
     private lateinit var favoriteButton: FloatingActionButton
+    private lateinit var removeButton: FloatingActionButton
 
     //Binding Object
     private lateinit var binding: FragmentMoviedetailsBinding
@@ -46,8 +50,7 @@ class MovieDetailFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentMoviedetailsBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,7 +64,7 @@ class MovieDetailFragment : Fragment() {
             this, MovieDetailViewModel.MovieDetailViewModelFactory(
                 MovieRepository(requireContext())
             )
-        ).get(MovieDetailViewModel::class.java)
+        )[MovieDetailViewModel::class.java]
 
         movieDescription = binding.moviecontentstxt
         moviePoster = binding.moviebanner
@@ -88,11 +91,22 @@ class MovieDetailFragment : Fragment() {
 
         favoriteButton = binding.fab
         favoriteButton.setOnClickListener {
-            val movie = LocalMovie(
+            viewModel.addMovie(LocalMovie(
                 viewModel.movie.value!!.id,
-                viewModel.movie.value!!.originalTitle, viewModel.movie.value!!.posterPath
-            )
-            viewModel.addMovie(movie)
+                viewModel.movie.value!!.originalTitle,
+                viewModel.movie.value!!.posterPath))
+
+            Toast.makeText(activity,"Added to the Favorites!",Toast.LENGTH_SHORT).show()
+        }
+
+        removeButton = binding.unFav
+        removeButton.setOnClickListener {
+            viewModel.delete(LocalMovie(
+                viewModel.movie.value!!.id,
+                viewModel.movie.value!!.originalTitle,
+                viewModel.movie.value!!.posterPath))
+
+            Toast.makeText(activity,"Removed From Favorites!",Toast.LENGTH_SHORT).show()
         }
     }
 

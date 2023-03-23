@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.R
 import com.example.filmbuffs.database.LocalMovie
 import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
+import com.example.filmbuffs.util.Constants.BASE_URL_IMG
 import com.squareup.picasso.Picasso
 
 internal class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.ViewHolder>() {
@@ -18,12 +19,12 @@ internal class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.
         private val imgPoster = binding.moviePoster
         val progressbar: ProgressBar = binding.progressBar
 
-        fun bindItems(movie: LocalMovie, listener: FavoriteMovieAdapter.OnItemClickListener) {
+        fun bindItems(movie: LocalMovie, listener: OnItemClickListener) {
             txtTitle.text = movie.movieName
             progressbar.visibility = View.VISIBLE
 
             Picasso.with(itemView.context)
-                .load("https://image.tmdb.org/t/p/original" + movie.movieBannerUrl)
+                .load(BASE_URL_IMG + movie.movieBannerUrl)
                 .error(R.drawable.ic_action_error_placeholder)
                 .noFade()
                 .into(imgPoster, object : com.squareup.picasso.Callback {
@@ -36,10 +37,10 @@ internal class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.
                     }
 
                 })
+
             itemView.setOnClickListener {
                 listener.onClick(movie)
             }
-
         }
     }
 
@@ -50,10 +51,10 @@ internal class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FavoriteMovieAdapter.ViewHolder {
+    ): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.movie_poster_with_title, parent, false)
-        return FavoriteMovieAdapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
@@ -65,7 +66,7 @@ internal class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.
     }
 
 
-    override fun onBindViewHolder(holder: FavoriteMovieAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val movie: LocalMovie = movieList[position]
         holder.bindItems(movie, listener!!)
     }

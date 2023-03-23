@@ -1,10 +1,7 @@
 package com.example.filmbuffs.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.example.filmbuffs.database.LocalMovie
-import com.example.filmbuffs.models.singlemoviemodel.SingleMovieDetail
-import com.example.filmbuffs.networkcalls.NetworkModule
 import com.example.filmbuffs.repository.MovieRepository
 import kotlinx.coroutines.launch
 
@@ -15,11 +12,6 @@ class FavoriteMoviesViewModel(private val repository: MovieRepository) : ViewMod
     val favMovies: LiveData<List<LocalMovie>>
         get() = _favMovies
 
-    fun delete(movie: LocalMovie) {
-        viewModelScope.launch {
-            repository.delete(movie)
-        }
-    }
     fun getAllMovies() {
         viewModelScope.launch {
             val response = repository.getAll()

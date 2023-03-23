@@ -14,9 +14,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MovieDetailViewModel(private val repository: MovieRepository): ViewModel() {
+class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
 
-    private val TAG : String = "MovieDetailViewModel"
+    private val TAG: String = "MovieDetailViewModel"
 
     private val _movie = MutableLiveData<SingleMovieDetail>()
     val movie: LiveData<SingleMovieDetail>
@@ -29,22 +29,31 @@ class MovieDetailViewModel(private val repository: MovieRepository): ViewModel()
     //Retrofit instance
     private val apiService = NetworkModule.moviesApi
 
-    fun addMovie(favMovie : LocalMovie) {
-        viewModelScope.launch (Dispatchers.IO) {
+    fun addMovie(favMovie: LocalMovie) {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.addMovie(favMovie)
+        }
+    }
+
+    fun delete(movie: LocalMovie) {
+        viewModelScope.launch {
+            repository.delete(movie)
         }
     }
 
     fun getMovieById(movieId: String) {
         val call = apiService.getMovie(movieId)
-        call.enqueue(object: Callback<SingleMovieDetail> {
+        call.enqueue(object : Callback<SingleMovieDetail> {
             override fun onFailure(call: Call<SingleMovieDetail>, t: Throwable) {
-                Log.d(TAG,"Failed!")
+                Log.d(TAG, "Failed!")
             }
 
-            override fun onResponse(call: Call<SingleMovieDetail>, response: Response<SingleMovieDetail>) {
-                if(response.isSuccessful) {
-                    Log.d(TAG,"Success!")
+            override fun onResponse(
+                call: Call<SingleMovieDetail>,
+                response: Response<SingleMovieDetail>
+            ) {
+                if (response.isSuccessful) {
+                    Log.d(TAG, "Success!")
                     val movie = response.body()!!
                     _movie.postValue(movie)
 
@@ -54,21 +63,24 @@ class MovieDetailViewModel(private val repository: MovieRepository): ViewModel()
 
 
     }
-    fun getCastById(movieId: String){
+
+    fun getCastById(movieId: String) {
         val call = apiService.getCast(movieId)
-        call.enqueue(object: Callback<CastList> {
+        call.enqueue(object : Callback<CastList> {
             override fun onFailure(call: Call<CastList>, t: Throwable) {
-                Log.d(TAG,t.message!!)
+                Log.d(TAG, t.message!!)
             }
+
             override fun onResponse(call: Call<CastList>, response: Response<CastList>) {
-                if(response.isSuccessful) {
-                    Log.d(TAG,"Success!")
+                if (response.isSuccessful) {
+                    Log.d(TAG, "Success!")
                     val cast = response.body()!!.cast
                     _cast.postValue(cast)
                 }
             }
         })
     }
+
     class MovieDetailViewModelFactory(private val repository: MovieRepository) :
         ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {

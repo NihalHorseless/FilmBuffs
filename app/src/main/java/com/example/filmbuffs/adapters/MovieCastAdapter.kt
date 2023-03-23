@@ -25,7 +25,7 @@ internal class MovieCastAdapter
             progressBar.visibility = View.VISIBLE
 
             Picasso.with(itemView.context)
-                .load(Constants.BASE_URL_PERSON + cast.profilePath)
+                .load(Constants.BASE_URL_IMG + cast.profilePath)
                 .error(R.drawable.ic_action_error_placeholder)
                 .noFade()
                 .into(actorImg, object : com.squareup.picasso.Callback {

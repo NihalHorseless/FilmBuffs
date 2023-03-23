@@ -95,6 +95,7 @@ class MainFragment : Fragment(), MenuProvider {
                 movies
             )
         }
+
         movieTxt.text = getString(R.string.popular_text)
 
     }

@@ -17,7 +17,6 @@ import com.example.filmbuffs.viewmodels.FavoriteMoviesViewModel
 class FavoriteMoviesFragment : Fragment() {
     private val TAG = "FavoriteFragment"
 
-    // You have to create a factory!
     // View Model
     private lateinit var favoriteViewModel: FavoriteMoviesViewModel
 
@@ -32,8 +31,7 @@ class FavoriteMoviesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         binding = FragmentFavoriteMoviesBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,13 +41,10 @@ class FavoriteMoviesFragment : Fragment() {
             ViewModelProvider(
                 this,
                 FavoriteMoviesViewModel.FavoriteMoviesViewModelFactory(
-                    MovieRepository(
-                        requireContext()
-                    )
+                    MovieRepository(requireContext())
                 )
-            ).get(
-                FavoriteMoviesViewModel::class.java
-            )
+            )[FavoriteMoviesViewModel::class.java]
+
         initializeFields()
     }
 

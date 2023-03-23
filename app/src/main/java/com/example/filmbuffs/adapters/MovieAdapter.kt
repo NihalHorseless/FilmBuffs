@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.R
 import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
 import com.example.filmbuffs.models.popularmoviemodel.Movie
+import com.example.filmbuffs.util.Constants.BASE_URL_IMG
 import com.squareup.picasso.Picasso
 
 internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
@@ -24,7 +25,7 @@ internal class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
             progressbar.visibility = View.VISIBLE
 
             Picasso.with(itemView.context)
-                .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
+                .load(BASE_URL_IMG + movie.posterPath)
                 .error(R.drawable.ic_action_error_placeholder)
                 .noFade()
                 .into(imgPoster, object : com.squareup.picasso.Callback {

@@ -16,4 +16,5 @@
     <string name="home_menu">Home</string>
     <string name="favorites_menu">Favorites</string>
     <string name="favButton">Favorite Button</string>
+    <string name="unFavButton">Remove Favorite</string>
 </resources>

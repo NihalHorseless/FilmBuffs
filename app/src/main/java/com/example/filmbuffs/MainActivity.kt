@@ -12,7 +12,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.filmbuffs.databinding.ActivityMainBinding
 
 
-
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
 
@@ -38,15 +37,23 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.mainFragment -> bottomNavigationView.visibility = View.VISIBLE
-                R.id.favoriteMoviesFragment -> bottomNavigationView.visibility = View.VISIBLE
+                R.id.mainFragment -> {
+                    bottomNavigationView.visibility = View.VISIBLE
+                    supportActionBar!!.title = "Popular Movies"
+                }
+                R.id.favoriteMoviesFragment -> {
+                    bottomNavigationView.visibility = View.VISIBLE
+                    supportActionBar!!.title = "Favorites"
+                }
                 else -> bottomNavigationView.visibility = View.GONE
             }
         }
 
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
+
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 

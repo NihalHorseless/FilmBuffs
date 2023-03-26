@@ -15,4 +15,5 @@ interface MovieDao {
 
     @Query("SELECT * FROM movies WHERE movieName = :searchedMovie")
     suspend fun loadSearchedMovie(searchedMovie: String): List<LocalMovie>
+
 }

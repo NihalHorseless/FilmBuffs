@@ -17,4 +17,7 @@
     <string name="favorites_menu">Favorites</string>
     <string name="favButton">Favorite Button</string>
     <string name="unFavButton">Remove Favorite</string>
+    <string name="movie_name">Movie Name</string>
+    <string name="movie_release_date">Released in\n</string>
+    <string name="movie_rating">User Ratings \n</string>
 </resources>

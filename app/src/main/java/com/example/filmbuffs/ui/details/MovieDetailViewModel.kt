@@ -9,6 +9,7 @@ import com.example.filmbuffs.data.repository.MovieRepository
 import com.example.filmbuffs.di.networkcalls.NetworkModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
 
@@ -30,7 +31,6 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
             repository.addMovie(favMovie)
         }
     }
-
     fun delete(movie: LocalMovie) {
         viewModelScope.launch {
             repository.delete(movie)

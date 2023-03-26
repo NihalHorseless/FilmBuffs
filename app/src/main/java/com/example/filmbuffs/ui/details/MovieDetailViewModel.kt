@@ -26,6 +26,18 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
     //Retrofit instance
     private val apiService = NetworkModule.moviesApi
 
+    private val _isMovieLiked = MutableLiveData<Boolean>()
+    val isMovieLiked: LiveData<Boolean>
+        get() = _isMovieLiked
+
+    // Define a method to check if a movie is liked or not
+    fun checkMovieLiked(movieId: Int) {
+        viewModelScope.launch {
+            val isLiked = repository.isMovieLiked(movieId)
+            _isMovieLiked.postValue(isLiked)
+        }
+    }
+
     fun addMovie(favMovie: LocalMovie) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addMovie(favMovie)

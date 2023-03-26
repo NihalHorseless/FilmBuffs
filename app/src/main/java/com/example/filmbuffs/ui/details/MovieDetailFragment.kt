@@ -1,5 +1,6 @@
 package com.example.filmbuffs.ui.details
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -22,7 +24,7 @@ import com.squareup.picasso.Picasso
 
 
 class MovieDetailFragment : Fragment() {
-    private val TAG = "DetailFragment"
+    // private val TAG = "DetailFragment"
 
     //ViewModel object
     private lateinit var viewModel: MovieDetailViewModel
@@ -35,10 +37,7 @@ class MovieDetailFragment : Fragment() {
     private var moviePoster: ImageView? = null
     private lateinit var recyclerview: RecyclerView
     private lateinit var adapter: MovieCastAdapter
-
-    //Buttons
     private lateinit var favoriteButton: FloatingActionButton
-    private lateinit var removeButton: FloatingActionButton
 
     //Binding Object
     private lateinit var binding: FragmentMoviedetailsBinding
@@ -73,6 +72,7 @@ class MovieDetailFragment : Fragment() {
         movieName = binding.movieName
         movieReleaseDate = binding.movieReleaseDate
         movieRating = binding.movieRating
+        favoriteButton = binding.fab
 
         recyclerview = binding.castList
         recyclerview.layoutManager =
@@ -81,15 +81,14 @@ class MovieDetailFragment : Fragment() {
         adapter = MovieCastAdapter()
         recyclerview.adapter = adapter
 
-        val movieId = args.movieId.toString()
-        viewModel.getMovieById(movieId)
+        val movieId = args.movieId
+        viewModel.getMovieById(movieId.toString())
         // Release Date, Genres,Vote average
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             movieDescription!!.text = movie.overview
             movieName!!.text = movie.title
             movieRating!!.text =
                 getString(R.string.movie_rating) + String.format("%.2f", movie.voteAverage) + "/10"
-                    .toString()
             movieReleaseDate!!.text = getString(R.string.movie_release_date) + movie.releaseDate
             Picasso.with(activity)
                 .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
@@ -97,32 +96,47 @@ class MovieDetailFragment : Fragment() {
                 .error(R.drawable.ic_action_error_placeholder)
                 .into(moviePoster)
         }
-        viewModel.getCastById(movieId)
+
+        viewModel.getCastById(movieId.toString())
         viewModel.cast.observe(viewLifecycleOwner) { cast -> adapter.updateMovies(cast) }
 
-        favoriteButton = binding.fab
+        viewModel.checkMovieLiked(movieId)
+        viewModel.isMovieLiked.observe(viewLifecycleOwner) { isLiked ->
+            if (isLiked) {
+                // If the movie is added to favorites,the button's icon and background color changes
+                favoriteButton.setImageResource(R.drawable.ic_remove_like)
+                favoriteButton.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.text_icons))
+            } else {
+                // If the movie is not liked, set the button's icon and background color to indicate that it is not liked
+                favoriteButton.setImageResource(R.drawable.ic_like)
+                favoriteButton.backgroundTintList =
+                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.light_primary))
+            }
+        }
         favoriteButton.setOnClickListener {
-            viewModel.addMovie(
-                LocalMovie(
-                    viewModel.movie.value!!.id,
-                    viewModel.movie.value!!.originalTitle,
-                    viewModel.movie.value!!.posterPath
+            if (viewModel.isMovieLiked.value == false) {
+                viewModel.addMovie(
+                    LocalMovie(
+                        viewModel.movie.value!!.id,
+                        viewModel.movie.value!!.originalTitle,
+                        viewModel.movie.value!!.posterPath
+                    )
                 )
-            )
-            Toast.makeText(activity, "Added to the Favorites!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Added to the Favorites!", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.delete(
+                    LocalMovie(
+                        viewModel.movie.value!!.id,
+                        viewModel.movie.value!!.originalTitle,
+                        viewModel.movie.value!!.posterPath
+                    )
+                )
+                Toast.makeText(activity, "Removed From Favorites!", Toast.LENGTH_SHORT).show()
+            }
+            viewModel.checkMovieLiked(movieId)
         }
 
-        removeButton = binding.unFav
-        removeButton.setOnClickListener {
-            viewModel.delete(
-                LocalMovie(
-                    viewModel.movie.value!!.id,
-                    viewModel.movie.value!!.originalTitle,
-                    viewModel.movie.value!!.posterPath
-                )
-            )
-            Toast.makeText(activity, "Removed From Favorites!", Toast.LENGTH_SHORT).show()
-        }
     }
 
 

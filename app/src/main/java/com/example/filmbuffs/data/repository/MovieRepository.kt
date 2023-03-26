@@ -19,4 +19,7 @@ class MovieRepository(private val context: Context) {
     suspend fun loadSearchedMovie(searchedMovie: String): List<LocalMovie> =
         MovieDatabase.getInstance(context).movieDao().loadSearchedMovie(searchedMovie)
 
+    suspend fun isMovieLiked(movieId: Int): Boolean = withContext(Dispatchers.IO) {
+        MovieDatabase.getInstance(context).movieDao().isMovieLiked(movieId)
+    }
 }

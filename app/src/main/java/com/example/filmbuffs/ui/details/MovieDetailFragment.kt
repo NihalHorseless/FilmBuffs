@@ -19,6 +19,7 @@ import com.example.filmbuffs.data.local.database.LocalMovie
 import com.example.filmbuffs.data.repository.MovieRepository
 import com.example.filmbuffs.databinding.FragmentMoviedetailsBinding
 import com.example.filmbuffs.ui.adapters.MovieCastAdapter
+import com.example.filmbuffs.util.Constants.BASE_URL_IMG
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.squareup.picasso.Picasso
 
@@ -49,13 +50,14 @@ class MovieDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentMoviedetailsBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initializeView()
 
     }
@@ -83,15 +85,19 @@ class MovieDetailFragment : Fragment() {
 
         val movieId = args.movieId
         viewModel.getMovieById(movieId.toString())
-        // Release Date, Genres,Vote average
+
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             movieDescription!!.text = movie.overview
             movieName!!.text = movie.title
             movieRating!!.text =
-                getString(R.string.movie_rating) + String.format("%.2f", movie.voteAverage) + "/10"
+                getString(R.string.movie_rating) + String.format(
+                    "%.2f",
+                    movie.voteAverage
+                ) + getString(R.string.movie_rating_out_of_ten)
             movieReleaseDate!!.text = getString(R.string.movie_release_date) + movie.releaseDate
+
             Picasso.with(activity)
-                .load("https://image.tmdb.org/t/p/original" + movie.posterPath)
+                .load(BASE_URL_IMG + movie.posterPath)
                 .placeholder(R.drawable.ic_action_placeholder)
                 .error(R.drawable.ic_action_error_placeholder)
                 .into(moviePoster)
@@ -106,12 +112,22 @@ class MovieDetailFragment : Fragment() {
                 // If the movie is added to favorites,the button's icon and background color changes
                 favoriteButton.setImageResource(R.drawable.ic_remove_like)
                 favoriteButton.backgroundTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.text_icons))
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.text_icons
+                        )
+                    )
             } else {
                 // If the movie is not liked, set the button's icon and background color to indicate that it is not liked
                 favoriteButton.setImageResource(R.drawable.ic_like)
                 favoriteButton.backgroundTintList =
-                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.light_primary))
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.light_primary
+                        )
+                    )
             }
         }
         favoriteButton.setOnClickListener {

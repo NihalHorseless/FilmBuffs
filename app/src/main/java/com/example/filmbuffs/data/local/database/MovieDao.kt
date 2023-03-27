@@ -15,7 +15,8 @@ interface MovieDao {
 
     @Query("SELECT * FROM movies WHERE movieName = :searchedMovie")
     suspend fun loadSearchedMovie(searchedMovie: String): List<LocalMovie>
-    // Define a method to check if a movie is liked or not
+
+    // Check if a movie is liked or not
     @Query("SELECT EXISTS (SELECT 1 FROM movies WHERE movieId = :movieId)")
     fun isMovieLiked(movieId: Int): Boolean
 }

@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.R
-import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
 import com.example.filmbuffs.data.remote.models.popularmoviemodel.Movie
+import com.example.filmbuffs.databinding.MoviePosterWithTitleBinding
 import com.example.filmbuffs.util.Constants.BASE_URL_IMG
 import com.squareup.picasso.Picasso
 

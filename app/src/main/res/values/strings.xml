@@ -20,4 +20,5 @@
     <string name="movie_name">Movie Name</string>
     <string name="movie_release_date">Released in\n</string>
     <string name="movie_rating">User Ratings \n</string>
+    <string name="movie_rating_out_of_ten">/10</string>
 </resources>

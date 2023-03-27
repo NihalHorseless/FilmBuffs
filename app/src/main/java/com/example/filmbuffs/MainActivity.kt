@@ -13,7 +13,7 @@ import com.example.filmbuffs.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    private val TAG = "MainActivity"
+    // private val TAG = "MainActivity"
 
     private lateinit var navController: NavController
 

@@ -9,7 +9,6 @@ import com.example.filmbuffs.data.repository.MovieRepository
 import com.example.filmbuffs.di.networkcalls.NetworkModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel() {
 
@@ -30,7 +29,6 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
     val isMovieLiked: LiveData<Boolean>
         get() = _isMovieLiked
 
-    // Define a method to check if a movie is liked or not
     fun checkMovieLiked(movieId: Int) {
         viewModelScope.launch {
             val isLiked = repository.isMovieLiked(movieId)
@@ -43,6 +41,7 @@ class MovieDetailViewModel(private val repository: MovieRepository) : ViewModel(
             repository.addMovie(favMovie)
         }
     }
+
     fun delete(movie: LocalMovie) {
         viewModelScope.launch {
             repository.delete(movie)

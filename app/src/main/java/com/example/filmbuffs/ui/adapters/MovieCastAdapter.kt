@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.R
-import com.example.filmbuffs.databinding.MovieCastItemBinding
 import com.example.filmbuffs.data.remote.models.castmodel.Cast
+import com.example.filmbuffs.databinding.MovieCastItemBinding
 import com.example.filmbuffs.util.Constants
 import com.squareup.picasso.Picasso
 

@@ -11,13 +11,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmbuffs.R
-import com.example.filmbuffs.ui.adapters.MovieAdapter
 import com.example.filmbuffs.databinding.FragmentMainBinding
+import com.example.filmbuffs.ui.adapters.MovieAdapter
 
 
 class MainFragment : Fragment(), MenuProvider {
 
-    private val TAG = "MainFragment"
+    // private val TAG = "MainFragment"
 
     // View Model
     private val myViewModel: MainViewModel by viewModels()

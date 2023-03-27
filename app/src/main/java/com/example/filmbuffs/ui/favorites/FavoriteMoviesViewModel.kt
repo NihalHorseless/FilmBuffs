@@ -6,7 +6,7 @@ import com.example.filmbuffs.data.repository.MovieRepository
 import kotlinx.coroutines.launch
 
 class FavoriteMoviesViewModel(private val repository: MovieRepository) : ViewModel() {
- private val TAG = "FavoriteMoviesViewModel"
+ // private val TAG = "FavoriteMoviesViewModel"
 
     private val _favMovies = MutableLiveData<List<LocalMovie>>()
     val favMovies: LiveData<List<LocalMovie>>

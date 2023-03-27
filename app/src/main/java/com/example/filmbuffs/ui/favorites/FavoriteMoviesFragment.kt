@@ -14,7 +14,7 @@ import com.example.filmbuffs.databinding.FragmentFavoriteMoviesBinding
 import com.example.filmbuffs.ui.adapters.FavoriteMovieAdapter
 
 class FavoriteMoviesFragment : Fragment() {
-    private val TAG = "FavoriteFragment"
+    // private val TAG = "FavoriteFragment"
 
     // View Model
     private lateinit var favoriteViewModel: FavoriteMoviesViewModel
@@ -28,7 +28,7 @@ class FavoriteMoviesFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentFavoriteMoviesBinding.inflate(inflater, container, false)
         return binding.root
     }
